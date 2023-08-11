@@ -1,47 +1,44 @@
-import java.util.Arrays;
 import java.util.Scanner;
- 
-/**
- *
- * @author Yehia Ezzat
- */
+
 public class A_Comparing_Strings {
- 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) {
- 
+
         Scanner scan = new Scanner(System.in);
-        String stringOne,stringTwo;
- 
+        String stringOne, stringTwo;
+
         stringOne = scan.nextLine();
         stringTwo = scan.nextLine();
-        int counter=0;
- 
-        char[] st1 = stringOne.toCharArray();
-        char[] st2 = stringTwo.toCharArray();
- 
-        if(stringOne.length()!=stringTwo.length())
-        {
+
+        if (stringOne.length() != stringTwo.length()) {
             System.out.println("NO");
-            System.exit(0);          
+            System.exit(0);
         }
- 
-        for(int i=0;i<stringOne.length();i++)
-        {
-            if(st1[i]!=st2[i])
-                counter++;   
+
+        int firstDiffIndex = -1;
+        int secondDiffIndex = -1;
+        int counter = 0;
+
+        for (int i = 0; i < stringOne.length(); i++) {
+            if (stringOne.charAt(i) != stringTwo.charAt(i)) {
+                counter++;
+                if (counter > 2) {
+                    System.out.println("NO");
+                    System.exit(0);
+                }
+                if (firstDiffIndex == -1) {
+                    firstDiffIndex = i;
+                } else {
+                    secondDiffIndex = i;
+                }
+            }
         }
-        boolean flag = false;
-        if(counter==2){
-            Arrays.sort(st1);
-            Arrays.sort(st2);
-            flag=Arrays.equals(st1, st2);           
-        }
-        if(flag)
+
+        if (counter == 2 && stringOne.charAt(firstDiffIndex) == stringTwo.charAt(secondDiffIndex)
+            && stringOne.charAt(secondDiffIndex) == stringTwo.charAt(firstDiffIndex)) {
             System.out.println("YES");
-        else
-            System.out.println("NO");           
+        } else {
+            System.out.println("NO");
+        }
     }
 }
